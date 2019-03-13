@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>标题</td>
+        <td>作者</td>
+    </tr>
+    <tr>
+        {% for d in data %}
+            <td>{{ d.title }}</td>
+            <td>{{ d.author }}</td>
+        {% endfor %}
+    </tr>
+</table>
+</body>
+</html>

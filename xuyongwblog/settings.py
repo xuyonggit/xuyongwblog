@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -37,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -74,13 +74,22 @@ WSGI_APPLICATION = 'xuyongwblog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'xuyongwblog',
+        'USER': 'django',
+        'PASSWORD': 'xuyongdjango',
+        'HOST': 'mysql.local.com',
+        'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -104,9 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-Hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -119,3 +128,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_DIRS = (
+    'static',
+    'user/static',
+)
+
+# email module
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  #调用Django模块 一般不变
+EMAIL_HOST = 'smtp.exmail.qq.com' #邮件服务器，和你发邮件的邮箱相对应。企业用的话一般需要询问一下，每个企业有自己的邮箱服务器配置
+EMAIL_PORT = 25   #端口 一般25
+EMAIL_HOST_USER = 'kefu@gintong.com' #发件箱：<span style="font-family: Arial;">可直接向外发送邮件的私人邮箱 或 </span>帮你向外转发邮件的企业提供的特殊邮箱（企业邮箱）
+EMAIL_HOST_PASSWORD = '6C3P8zIw5joE' #密码
+
+# session
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_AGE = 86400
